@@ -57,31 +57,23 @@ T = 500
 
 shifts = sorted(rates.keys())
 
-identity_shifts = {
-    "1-2": "ethyl", "1-3": "propyl", "1-4": "butyl", "1-5": "pentyl", "1-6": "hexyl", "1-7": "heptyl", "1-8": "octyl",
-}
-
 exp_rates = {
         shift: np.array([validation_paper_result.get_rate(T) for validation_paper_result in experimental.rate_results_all[shift]]).tolist()
-        for shift in shifts if shift not in ["1-2", "1-7", "1-8"]
+        for shift in experimental.rate_results_all.keys()
     }
-exp_rates = exp_rates | {"1-2": [0.0], "1-7": [0.0]}
+exp_shifts = exp_rates.keys()
 pprint(exp_rates)
 
-r_experimental = np.array([np.mean(exp_rates[shift]) for shift in shifts])
+r_experimental = np.array([np.mean(exp_rates[shift]) for shift in exp_shifts])
 p_experimental = r_experimental / r_experimental.sum()
 
-def get_probs(t_sim, n_unique):
-    rs_kimmdy = parameter_rates[int(t_sim)][int(n_unique)]
-    rs_kimmdy = np.array([rs_kimmdy[shift] for shift in shifts])
-    p_kimmdy = (rs_kimmdy / np.nansum(rs_kimmdy, axis=0)).T
-    return p_kimmdy
 
 BD = np.full((t_sims.size, n_uniques.size), np.nan)
 R_mean = np.full((len(shifts), t_sims.size, n_uniques.size), -1.0)
 R_min = np.full((len(shifts), t_sims.size, n_uniques.size), -1.0)
 R_max = np.full((len(shifts), t_sims.size, n_uniques.size), -1.0)
 assert len(shifts) == 6
+
 
 ratios = {}
 
@@ -102,14 +94,18 @@ for i, t_sim in enumerate(t_sims):
         R_min[:, i, j] = np.nanmin(rs_kimmdy, axis=1)
         R_max[:, i, j] = np.nanmax(rs_kimmdy, axis=1)
 
-        p_kimmdy = (rs_kimmdy / np.nansum(rs_kimmdy, axis=0)).T
+        # For BD analysis, we exclude 1-2 and 1-7
+        assert rs_kimmdy.shape[0] == 6
+        p_kimmdy = (rs_kimmdy[1:-1] / np.nansum(rs_kimmdy[1:-1], axis=0)).T
 
         if t_sim == 100000 and n_unique == 100000:
             print(t_sim, n_unique)
             print(repr(p_kimmdy))
             print(p_kimmdy.shape, shifts)
 
-        bd = np.mean([util.brier_score_divergence(p_k[1:-1], p_experimental[1:-1]) for p_k in p_kimmdy])
+        bd = np.mean([util.brier_score_divergence(p_k, p_experimental) for p_k in p_kimmdy])
+        assert np.isclose(p_experimental.sum(), 1.0) and np.isclose(p_kimmdy[0].sum(), 1.0)
+
         print(bd)
 
         BD[i, j] = bd
