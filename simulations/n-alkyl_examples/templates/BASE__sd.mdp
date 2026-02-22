@@ -1,5 +1,5 @@
 integrator               = sd
-nsteps                   = 100000000 	; 10ns  # 10min 100000 frames
+nsteps                   = 100000000
 dt                       = 0.001 ;1fs
 nstenergy                = 1000
 nstcalcenergy            = 50 ; should be a divisor of nstdhdl
