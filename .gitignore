@@ -337,8 +337,18 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/python,pycharm,linux,macos
 
 # Custom
-simulations/hyperparameter_grid/systems/
-simulations/n-alkyl_examples/systems/
 
 # Too large
 *.csv
+
+# Ignore everything recursively under
+simulations/hyperparameter_grid/systems/**
+simulations/n-alkyl_examples/systems/**
+
+# Re-allow traversal into nested directories
+!simulations/hyperparameter_grid/systems/**/
+!simulations/n-alkyl_examples/systems/**/
+
+# Re-include all .gro files anywhere under
+!simulations/hyperparameter_grid/systems/**/*.gro
+!simulations/n-alkyl_examples/systems/**/*.gro
