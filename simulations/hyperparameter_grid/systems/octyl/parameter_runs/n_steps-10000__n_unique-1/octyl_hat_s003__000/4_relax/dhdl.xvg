@@ -1,0 +1,69 @@
+# This file was created Fri May  2 18:29:27 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-10000__n_unique-1/octyl_hat_s003__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Good gRace! Old Maple Actually Chews Slate
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 97.841728
+0.1000 571.55969
+0.2000 358.33234
+0.3000 510.24442
+0.4000 145.42046
+0.5000 288.59058
+0.6000 464.33658
+0.7000 240.29131
+0.8000 204.91286
+0.9000 402.90930
+1.0000 287.53235
+1.1000 220.59067
+1.2000 242.68375
+1.3000 436.81616
+1.4000 259.28192
+1.5000 229.95210
+1.6000 234.04523
+1.7000 -78.020508
+1.8000 130.82588
+1.9000 29.091288
+2.0000 173.05510
+2.1000 -132.19496
+2.2000 -170.67549
+2.3000 -137.53580
+2.4000 166.33394
+2.5000 284.45627
+2.6000 -181.50340
+2.7000 107.69374
+2.8000 390.12708
+2.9000 93.443275
+3.0000 94.081017
+3.1000 -307.40012
+3.2000 -167.19421
+3.3000 -211.91386
+3.4000 150.57541
+3.5000 -251.40327
+3.6000 194.15723
+3.7000 168.63481
+3.8000 324.89523
+3.9000 245.59518
+4.0000 160.65469
+4.1000 -45.097248
+4.2000 270.90775
+4.3000 -165.96217
+4.4000 -119.25268
+4.5000 327.85184
+4.6000 -61.475384
+4.7000 -171.51970
+4.8000 32.700630
+4.9000 -320.20029
+5.0000 106.90181

@@ -1,0 +1,69 @@
+# This file was created Fri May  2 16:07:34 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-100000__n_unique-1000/octyl_hat_s001__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# GROningen MAchine for Chemical Simulation
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 113.85304
+0.1000 846.27539
+0.2000 810.15497
+0.3000 680.18036
+0.4000 421.09808
+0.5000 -256.21777
+0.6000 -221.49542
+0.7000 -78.664124
+0.8000 86.487663
+0.9000 -33.158443
+1.0000 -125.25789
+1.1000 -32.377018
+1.2000 11.433693
+1.3000 -190.27771
+1.4000 -102.41779
+1.5000 237.79857
+1.6000 -145.24722
+1.7000 71.612717
+1.8000 203.49985
+1.9000 71.486542
+2.0000 -98.228241
+2.1000 -365.44250
+2.2000 179.24011
+2.3000 188.26488
+2.4000 116.13195
+2.5000 -102.54901
+2.6000 277.50000
+2.7000 -109.05255
+2.8000 164.40474
+2.9000 348.88757
+3.0000 41.279934
+3.1000 102.55114
+3.2000 358.02692
+3.3000 297.94138
+3.4000 269.96439
+3.5000 -23.407207
+3.6000 7.7124195
+3.7000 166.26091
+3.8000 -18.653534
+3.9000 -153.64276
+4.0000 -110.97517
+4.1000 66.136932
+4.2000 -372.58557
+4.3000 -645.42590
+4.4000 12.241571
+4.5000 250.96201
+4.6000 166.64539
+4.7000 -247.94638
+4.8000 -186.72655
+4.9000 -258.93491
+5.0000 -606.28516

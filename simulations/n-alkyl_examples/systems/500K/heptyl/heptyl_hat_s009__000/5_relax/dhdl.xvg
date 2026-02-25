@@ -1,0 +1,69 @@
+# This file was created Mon Mar 24 23:51:30 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/heptyl/heptyl_hat_s009__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# GROwing Monsters And Cloning Shrimps
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 1190.0842
+0.1000 177.44273
+0.2000 283.81870
+0.3000 -156.15785
+0.4000 111.53240
+0.5000 181.25041
+0.6000 -71.518768
+0.7000 -46.083839
+0.8000 12.447717
+0.9000 252.18765
+1.0000 87.214371
+1.1000 -17.337261
+1.2000 -14.015776
+1.3000 277.26340
+1.4000 91.441200
+1.5000 -295.47491
+1.6000 258.74316
+1.7000 -124.55463
+1.8000 -394.27878
+1.9000 -427.32629
+2.0000 -212.22812
+2.1000 322.04001
+2.2000 -16.271507
+2.3000 522.87189
+2.4000 -452.28036
+2.5000 -435.36725
+2.6000 -118.24629
+2.7000 516.45154
+2.8000 134.64737
+2.9000 239.58264
+3.0000 375.03906
+3.1000 16.032351
+3.2000 -229.62840
+3.3000 88.650261
+3.4000 281.37659
+3.5000 56.727062
+3.6000 -63.303230
+3.7000 138.57254
+3.8000 92.249321
+3.9000 226.53081
+4.0000 22.481205
+4.1000 313.69196
+4.2000 35.404316
+4.3000 335.67590
+4.4000 -0.26585770
+4.5000 -5.5420732
+4.6000 114.63625
+4.7000 23.599888
+4.8000 435.35464
+4.9000 43.906399
+5.0000 -1194.6957

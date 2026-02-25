@@ -1,0 +1,69 @@
+# This file was created Mon Mar 24 19:18:35 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/hexyl/hexyl_hat_s006__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Great Red Oystrich Makes All Chemists Sane
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 -107.71150
+0.1000 -227.09560
+0.2000 10.008859
+0.3000 307.21600
+0.4000 671.11908
+0.5000 243.88127
+0.6000 -27.973114
+0.7000 214.56836
+0.8000 -253.13919
+0.9000 6.1905236
+1.0000 -305.26926
+1.1000 -125.29374
+1.2000 -51.397858
+1.3000 -26.644495
+1.4000 621.55780
+1.5000 -258.81512
+1.6000 -229.98468
+1.7000 -280.42593
+1.8000 102.40938
+1.9000 108.11658
+2.0000 122.54362
+2.1000 268.50696
+2.2000 -13.589083
+2.3000 -257.32471
+2.4000 -105.30190
+2.5000 151.00313
+2.6000 4.4688921
+2.7000 -128.01689
+2.8000 -191.07797
+2.9000 176.38931
+3.0000 246.46793
+3.1000 262.20981
+3.2000 -493.88702
+3.3000 -307.89236
+3.4000 -91.334801
+3.5000 526.17578
+3.6000 -68.782104
+3.7000 163.89499
+3.8000 75.704048
+3.9000 61.829182
+4.0000 182.05798
+4.1000 119.21638
+4.2000 173.82237
+4.3000 -76.301971
+4.4000 13.356681
+4.5000 49.340630
+4.6000 70.013298
+4.7000 -210.90802
+4.8000 189.02515
+4.9000 -423.71536
+5.0000 -390.51489

@@ -1,0 +1,69 @@
+# This file was created Fri May  2 18:22:07 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-100000__n_unique-10000/octyl_hat_s001__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# GROningen Mixture of Alchemy and Childrens' Stories
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 8.2650242
+0.1000 189.40556
+0.2000 271.25269
+0.3000 -298.01450
+0.4000 -155.24393
+0.5000 -83.549225
+0.6000 34.778618
+0.7000 -138.15398
+0.8000 367.36896
+0.9000 101.35305
+1.0000 333.78946
+1.1000 37.021252
+1.2000 -109.24771
+1.3000 -120.40532
+1.4000 -116.28828
+1.5000 -69.722122
+1.6000 -99.540543
+1.7000 -101.31308
+1.8000 -164.52031
+1.9000 -49.417557
+2.0000 -108.93830
+2.1000 -407.75378
+2.2000 398.56967
+2.3000 146.75024
+2.4000 195.54314
+2.5000 -72.617126
+2.6000 77.950806
+2.7000 265.78830
+2.8000 -131.90681
+2.9000 -198.74184
+3.0000 -108.40431
+3.1000 268.82513
+3.2000 582.55316
+3.3000 174.81445
+3.4000 73.623558
+3.5000 155.52182
+3.6000 600.60156
+3.7000 -166.28304
+3.8000 450.52896
+3.9000 51.025917
+4.0000 339.06406
+4.1000 -4.2216902
+4.2000 -24.439634
+4.3000 218.03804
+4.4000 -225.71838
+4.5000 359.17651
+4.6000 -292.25534
+4.7000 -11.515420
+4.8000 149.17593
+4.9000 -353.62619
+5.0000 -3257.4089

@@ -1,0 +1,69 @@
+# This file was created Tue Mar 25 01:47:47 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/pentyl/pentyl_hat_s017__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# GRoups of Organic Molecules in ACtion for Science
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 2003.3917
+0.1000 -67.699005
+0.2000 -30.091806
+0.3000 -270.10886
+0.4000 -312.77890
+0.5000 398.26517
+0.6000 -19.266142
+0.7000 -301.70807
+0.8000 282.74588
+0.9000 15.439978
+1.0000 20.626690
+1.1000 -56.890736
+1.2000 86.559334
+1.3000 139.70235
+1.4000 -283.36646
+1.5000 410.34314
+1.6000 -299.84818
+1.7000 92.914276
+1.8000 -100.97523
+1.9000 145.15062
+2.0000 70.996269
+2.1000 -145.72403
+2.2000 -26.524523
+2.3000 -191.14183
+2.4000 57.285431
+2.5000 33.433231
+2.6000 174.40288
+2.7000 42.984356
+2.8000 -96.556030
+2.9000 114.70441
+3.0000 -236.80663
+3.1000 -110.69642
+3.2000 244.76445
+3.3000 145.85210
+3.4000 -474.15680
+3.5000 243.38071
+3.6000 270.71585
+3.7000 -88.464859
+3.8000 -17.117552
+3.9000 363.82599
+4.0000 34.868843
+4.1000 286.34109
+4.2000 398.37207
+4.3000 -221.40825
+4.4000 86.238899
+4.5000 -65.558578
+4.6000 -223.38829
+4.7000 176.87079
+4.8000 259.50357
+4.9000 301.65048
+5.0000 -281.32339

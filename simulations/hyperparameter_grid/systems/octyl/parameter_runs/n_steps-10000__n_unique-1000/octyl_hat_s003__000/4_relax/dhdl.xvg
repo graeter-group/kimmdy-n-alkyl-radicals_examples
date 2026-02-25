@@ -1,0 +1,69 @@
+# This file was created Fri May  2 19:27:04 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-10000__n_unique-1000/octyl_hat_s003__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Giant Rising Ordinary Mutants for A Clerical Setup
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 937.24030
+0.1000 -65.489365
+0.2000 -256.20825
+0.3000 -60.594612
+0.4000 -99.881485
+0.5000 -88.245316
+0.6000 -126.65541
+0.7000 -148.14761
+0.8000 159.46506
+0.9000 -227.71187
+1.0000 -21.265791
+1.1000 239.54504
+1.2000 219.28749
+1.3000 -144.99954
+1.4000 41.339264
+1.5000 -267.27029
+1.6000 159.46243
+1.7000 138.64096
+1.8000 -122.68487
+1.9000 -152.08115
+2.0000 -300.16376
+2.1000 202.78148
+2.2000 -200.87939
+2.3000 448.28693
+2.4000 222.86082
+2.5000 337.25638
+2.6000 -114.70412
+2.7000 -212.44780
+2.8000 417.95129
+2.9000 -311.61850
+3.0000 324.18161
+3.1000 -69.542831
+3.2000 194.53329
+3.3000 69.943718
+3.4000 187.05602
+3.5000 58.705460
+3.6000 136.66951
+3.7000 44.411465
+3.8000 -141.10890
+3.9000 -73.507156
+4.0000 -297.31888
+4.1000 299.10632
+4.2000 -160.37209
+4.3000 -100.58050
+4.4000 16.205303
+4.5000 -456.12561
+4.6000 705.53937
+4.7000 -327.27859
+4.8000 -940.98041
+4.9000 -638.17706
+5.0000 -538.07593

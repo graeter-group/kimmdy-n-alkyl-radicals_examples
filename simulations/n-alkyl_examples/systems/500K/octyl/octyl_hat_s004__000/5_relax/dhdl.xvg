@@ -1,0 +1,69 @@
+# This file was created Mon Mar 24 22:47:17 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/octyl/octyl_hat_s004__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# God Rules Over Mankind, Animals, Cosmos and Such
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 604.04242
+0.1000 -99.228149
+0.2000 56.453991
+0.3000 516.63232
+0.4000 582.64807
+0.5000 133.26888
+0.6000 307.24744
+0.7000 443.78137
+0.8000 424.61615
+0.9000 207.80061
+1.0000 48.372047
+1.1000 -302.28842
+1.2000 -89.030502
+1.3000 -49.337933
+1.4000 25.280197
+1.5000 -382.74896
+1.6000 -19.090406
+1.7000 18.223185
+1.8000 213.06577
+1.9000 -10.516545
+2.0000 260.23837
+2.1000 230.26100
+2.2000 202.91443
+2.3000 225.08870
+2.4000 251.62294
+2.5000 11.393399
+2.6000 -228.28438
+2.7000 111.00828
+2.8000 186.53403
+2.9000 -63.364819
+3.0000 43.918312
+3.1000 106.34412
+3.2000 -152.93315
+3.3000 209.34950
+3.4000 -197.92563
+3.5000 271.84967
+3.6000 -288.44684
+3.7000 -178.95262
+3.8000 320.22195
+3.9000 198.45062
+4.0000 -75.301895
+4.1000 -73.313744
+4.2000 64.736122
+4.3000 -142.43896
+4.4000 174.76791
+4.5000 17.419109
+4.6000 80.680496
+4.7000 -61.689209
+4.8000 -6.1619654
+4.9000 -476.94293
+5.0000 -605.90106

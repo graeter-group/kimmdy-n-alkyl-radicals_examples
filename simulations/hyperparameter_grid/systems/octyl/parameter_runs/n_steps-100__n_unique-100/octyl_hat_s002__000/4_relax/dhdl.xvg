@@ -1,0 +1,69 @@
+# This file was created Fri May  2 21:41:36 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-100__n_unique-100/octyl_hat_s002__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Great Red Owns Many ACres of Sand 
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 166.11545
+0.1000 174.43640
+0.2000 -25.147497
+0.3000 -107.11298
+0.4000 74.120377
+0.5000 630.06201
+0.6000 -30.157703
+0.7000 335.69617
+0.8000 220.43752
+0.9000 142.10588
+1.0000 200.94510
+1.1000 178.34227
+1.2000 -310.78793
+1.3000 501.72931
+1.4000 -305.01251
+1.5000 -202.38333
+1.6000 -67.996048
+1.7000 126.25420
+1.8000 163.56184
+1.9000 -115.33333
+2.0000 1.3262224
+2.1000 42.607456
+2.2000 -7.8087296
+2.3000 -17.109812
+2.4000 67.422913
+2.5000 170.92642
+2.6000 6.2037725
+2.7000 140.59477
+2.8000 -73.056519
+2.9000 -116.19221
+3.0000 293.76239
+3.1000 243.98430
+3.2000 -263.04199
+3.3000 60.150879
+3.4000 151.77206
+3.5000 270.48523
+3.6000 -96.648933
+3.7000 201.95938
+3.8000 -157.33299
+3.9000 182.08514
+4.0000 57.900467
+4.1000 380.48151
+4.2000 201.11456
+4.3000 -292.12524
+4.4000 336.94766
+4.5000 192.51172
+4.6000 120.86273
+4.7000 323.08493
+4.8000 53.675877
+4.9000 226.33087
+5.0000 -367.92200

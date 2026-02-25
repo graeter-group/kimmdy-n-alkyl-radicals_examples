@@ -1,0 +1,69 @@
+# This file was created Mon Mar 24 19:14:54 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/hexyl/hexyl_hat_s018__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Guyana Rwanda Oman Macau Angola Cameroon Senegal
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 3519.5559
+0.1000 458.97516
+0.2000 8.5011301
+0.3000 142.42798
+0.4000 724.65198
+0.5000 243.28963
+0.6000 253.77647
+0.7000 329.61826
+0.8000 442.94113
+0.9000 -8.0528965
+1.0000 107.10014
+1.1000 33.183731
+1.2000 -97.462608
+1.3000 -24.276402
+1.4000 178.36478
+1.5000 168.04655
+1.6000 -187.31227
+1.7000 -21.210876
+1.8000 -259.88174
+1.9000 263.57266
+2.0000 -193.06844
+2.1000 -270.98093
+2.2000 -284.68808
+2.3000 310.29489
+2.4000 -279.52243
+2.5000 223.04887
+2.6000 496.34439
+2.7000 -56.095314
+2.8000 -349.91705
+2.9000 -156.16974
+3.0000 227.22925
+3.1000 -210.53535
+3.2000 168.00287
+3.3000 -264.16721
+3.4000 147.06973
+3.5000 125.86205
+3.6000 110.42033
+3.7000 -26.703691
+3.8000 64.121460
+3.9000 79.170418
+4.0000 97.493805
+4.1000 60.992752
+4.2000 10.165022
+4.3000 52.983818
+4.4000 140.90710
+4.5000 358.71225
+4.6000 -41.218845
+4.7000 35.391796
+4.8000 -137.12773
+4.9000 -150.01862
+5.0000 -191.00836

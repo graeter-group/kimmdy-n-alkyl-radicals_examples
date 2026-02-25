@@ -1,0 +1,69 @@
+# This file was created Fri May  2 16:17:42 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-100000__n_unique-1000/octyl_hat_s002__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Gallium Rubidium Oxygen Manganese Argon Carbon Silicon
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 965.66663
+0.1000 -29.181444
+0.2000 -29.606445
+0.3000 -167.44870
+0.4000 39.379501
+0.5000 -117.14605
+0.6000 -262.48587
+0.7000 85.267006
+0.8000 218.36064
+0.9000 -216.38138
+1.0000 -82.682083
+1.1000 -181.05345
+1.2000 583.51111
+1.3000 -232.33553
+1.4000 506.95895
+1.5000 -233.13683
+1.6000 -268.51166
+1.7000 -456.67560
+1.8000 126.68585
+1.9000 173.73955
+2.0000 34.419815
+2.1000 -487.01505
+2.2000 285.78827
+2.3000 250.44791
+2.4000 85.878059
+2.5000 308.93814
+2.6000 211.99973
+2.7000 151.29079
+2.8000 -335.44962
+2.9000 345.78018
+3.0000 224.72733
+3.1000 -29.481859
+3.2000 106.24760
+3.3000 50.587440
+3.4000 48.631824
+3.5000 195.83838
+3.6000 -182.02759
+3.7000 -94.389145
+3.8000 -273.01184
+3.9000 -410.16293
+4.0000 -210.48476
+4.1000 -106.53735
+4.2000 -396.21207
+4.3000 421.23560
+4.4000 -142.68884
+4.5000 315.55432
+4.6000 -367.27328
+4.7000 99.147751
+4.8000 -320.23846
+4.9000 -59.312630
+5.0000 -144.99516

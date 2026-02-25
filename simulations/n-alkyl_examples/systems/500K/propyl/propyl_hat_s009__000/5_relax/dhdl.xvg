@@ -1,0 +1,69 @@
+# This file was created Mon Mar 24 22:47:49 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/propyl/propyl_hat_s009__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Glycine aRginine prOline Methionine Alanine Cystine Serine
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 2952.2878
+0.1000 721.49811
+0.2000 743.01044
+0.3000 589.28412
+0.4000 -241.70447
+0.5000 336.70795
+0.6000 268.34763
+0.7000 217.15295
+0.8000 242.33853
+0.9000 436.88638
+1.0000 412.93573
+1.1000 -143.37488
+1.2000 -331.01920
+1.3000 -187.71266
+1.4000 534.40106
+1.5000 -97.675598
+1.6000 -171.20547
+1.7000 -352.93127
+1.8000 -100.67081
+1.9000 352.17471
+2.0000 -245.49268
+2.1000 256.82007
+2.2000 -146.73926
+2.3000 232.55031
+2.4000 -46.453499
+2.5000 -80.229607
+2.6000 409.34219
+2.7000 -24.900660
+2.8000 225.82320
+2.9000 310.12155
+3.0000 366.06506
+3.1000 306.19968
+3.2000 392.24091
+3.3000 441.85727
+3.4000 556.85315
+3.5000 407.19177
+3.6000 587.69128
+3.7000 687.04126
+3.8000 678.60168
+3.9000 581.51093
+4.0000 618.79327
+4.1000 658.36713
+4.2000 793.37097
+4.3000 590.59180
+4.4000 590.99835
+4.5000 548.91156
+4.6000 593.11505
+4.7000 444.39737
+4.8000 560.50024
+4.9000 436.33179
+5.0000 377.50223

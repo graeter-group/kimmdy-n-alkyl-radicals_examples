@@ -1,0 +1,44 @@
+dryrun: false
+name: 'octyl_hat_s001__000'
+max_tasks: 100
+gromacs_alias: 'gmx'
+gmx_mdrun_flags: -maxh 24 -nt 1
+  #ff: 'amber99sb-star-ildnp.ff' # optional, dir endinng with .ff by default 
+top: 'octylR.top'
+gro: 'octylR_box.gro'
+tpr: 'equilibrium.tpr'
+xtc: 's1_equilibrium_1_2.xtc'
+ndx: 'index.ndx'
+radicals: '8'
+mds:
+  equilibrium:
+    mdp: 'sd__s1.mdp'
+  relax:
+    mdp: 'sd_slowgrowth__s1.mdp'
+changer:
+  coordinates:
+    md: 'relax'  
+    slow_growth: 'morse_only'
+  topology:
+    parameterization: 'grappa'
+    parameterization_kwargs:
+      grappa_tag: 'grappa-1.4.1-radical'
+reactions:
+  hat_reaction:
+    model: 'grappa'
+    kmc: 'rfkmc'
+    h_cutoff: 3
+    polling_rate: 1
+    keep_structures: True
+    cap: False 
+    prediction_scheme: 'all_models'
+    n_unique: 1
+    trajectory_format: 'xtc'
+    change_coords: 'lambda'
+    arrhenius_equation:
+      frequency_factor: 0.288
+      temperature: 500
+sequence:
+  - hat_reaction
+
+

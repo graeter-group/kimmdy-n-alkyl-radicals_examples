@@ -1,0 +1,39 @@
+integrator               = sd
+nsteps                   = 5000
+dt                       = 0.001 ;1fs
+nstenergy                = 1000
+nstcalcenergy            = 50 ; should be a divisor of nstdhdl
+nstlog                   = 1000
+nstxout 		 = 1000
+; cut-offs at 1.0nm
+rlist                    = 10.1
+rvdw                     = 10.1
+; Coulomb interactions
+coulombtype              = cutoff
+rcoulomb                 = 10.1
+fourierspacing           = 0.13
+; Constraints
+constraints              = none
+; set temperature to 300K
+tc-grps                  = system
+tau-t                    = 2.0
+ref-t                    = 500
+;Velocity generation
+gen-vel = yes
+gen_seed = 13
+ld-seed = 13
+
+; free-energy parameters
+free-energy             = yes
+init-lambda             = 0.0
+delta-lambda            = 0.0002                ; should be 1/nsteps
+separate-dhdl-file      = yes
+nstdhdl                 = 100
+
+
+; set pressure to 1 bar with a thermostat that gives a correct
+; thermodynamic ensemble
+;pcoupl                   = C-rescale
+;ref-p                    = 1.0
+;compressibility          = 4.5e-5
+;tau-p                    = 5.0

@@ -1,0 +1,69 @@
+# This file was created Fri May  2 18:27:03 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-100000__n_unique-10000/octyl_hat_s003__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Good ROcking Metal Altar for Chronical Sinners
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 421.26181
+0.1000 608.77435
+0.2000 632.17615
+0.3000 651.53204
+0.4000 580.20105
+0.5000 638.31104
+0.6000 600.46155
+0.7000 486.38107
+0.8000 460.19400
+0.9000 -309.86423
+1.0000 102.97949
+1.1000 -337.82605
+1.2000 63.420643
+1.3000 -199.43817
+1.4000 673.88892
+1.5000 -258.27832
+1.6000 -6.4878078
+1.7000 -713.08289
+1.8000 -463.58536
+1.9000 -271.93793
+2.0000 418.88016
+2.1000 178.89571
+2.2000 -99.375511
+2.3000 148.94862
+2.4000 385.60580
+2.5000 99.627235
+2.6000 404.50223
+2.7000 -254.03711
+2.8000 -124.86829
+2.9000 -207.37738
+3.0000 -127.89291
+3.1000 267.34442
+3.2000 430.63623
+3.3000 129.48174
+3.4000 691.11194
+3.5000 120.80438
+3.6000 16.560291
+3.7000 -144.25600
+3.8000 84.210953
+3.9000 143.33244
+4.0000 -83.478600
+4.1000 -252.32767
+4.2000 31.204227
+4.3000 328.35159
+4.4000 402.74176
+4.5000 -334.28442
+4.6000 201.56439
+4.7000 152.37570
+4.8000 -54.481106
+4.9000 -180.18271
+5.0000 -1392.9646

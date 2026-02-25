@@ -1,0 +1,69 @@
+# This file was created Tue Mar 25 00:40:35 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/pentyl/pentyl_hat_s014__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Gyas ROwers Mature At Cryogenic Speed
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 1485.3510
+0.1000 -235.03616
+0.2000 272.08212
+0.3000 93.195724
+0.4000 251.86252
+0.5000 -177.01280
+0.6000 190.98940
+0.7000 -156.68657
+0.8000 279.79767
+0.9000 -36.989346
+1.0000 -127.16534
+1.1000 -285.17822
+1.2000 234.51155
+1.3000 66.447075
+1.4000 -155.43069
+1.5000 -26.381590
+1.6000 -245.15213
+1.7000 -103.22786
+1.8000 -36.232315
+1.9000 47.338272
+2.0000 -77.241409
+2.1000 -61.465660
+2.2000 73.783516
+2.3000 93.648949
+2.4000 53.785942
+2.5000 104.13167
+2.6000 28.645826
+2.7000 -86.594452
+2.8000 -159.56349
+2.9000 254.12538
+3.0000 49.565014
+3.1000 207.89839
+3.2000 -57.013367
+3.3000 50.447815
+3.4000 16.915371
+3.5000 -185.45821
+3.6000 -153.11356
+3.7000 63.719975
+3.8000 80.112160
+3.9000 119.53709
+4.0000 -127.29696
+4.1000 38.334251
+4.2000 287.42590
+4.3000 -271.64743
+4.4000 -173.47736
+4.5000 298.85849
+4.6000 79.817505
+4.7000 -125.59746
+4.8000 -459.09619
+4.9000 -357.67377
+5.0000 -304.89258

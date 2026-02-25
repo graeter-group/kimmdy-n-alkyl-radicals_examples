@@ -1,0 +1,69 @@
+# This file was created Mon Mar 24 21:22:49 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/ensemble/systems/500K/pentyl/pentyl_hat_s002__000/5_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Gravel Rubs Often Many Awfully Cauterized Sores
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 1177.6270
+0.1000 114.41713
+0.2000 451.93307
+0.3000 2.0638440
+0.4000 -227.43913
+0.5000 -80.134560
+0.6000 15.808756
+0.7000 -241.78673
+0.8000 -137.27284
+0.9000 61.093868
+1.0000 58.886314
+1.1000 -351.84216
+1.2000 -129.55910
+1.3000 -70.559906
+1.4000 88.652443
+1.5000 -13.525900
+1.6000 -36.598377
+1.7000 194.90826
+1.8000 146.14427
+1.9000 -8.6818933
+2.0000 -94.712883
+2.1000 -245.34929
+2.2000 -234.26917
+2.3000 428.57581
+2.4000 1.8747640
+2.5000 -6.2349639
+2.6000 -119.24015
+2.7000 -333.93381
+2.8000 103.87833
+2.9000 262.27872
+3.0000 -322.62787
+3.1000 213.31895
+3.2000 168.10336
+3.3000 -31.148327
+3.4000 -128.84332
+3.5000 -298.01300
+3.6000 249.80078
+3.7000 -191.63773
+3.8000 314.77136
+3.9000 -124.95503
+4.0000 -516.64575
+4.1000 61.594818
+4.2000 217.54128
+4.3000 431.03183
+4.4000 -210.28528
+4.5000 -302.52325
+4.6000 346.41968
+4.7000 263.29889
+4.8000 -114.51216
+4.9000 -370.66885
+5.0000 -248.12419

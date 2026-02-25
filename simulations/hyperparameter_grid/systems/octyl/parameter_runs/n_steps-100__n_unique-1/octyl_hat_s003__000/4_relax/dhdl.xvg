@@ -1,0 +1,69 @@
+# This file was created Fri May  2 21:32:49 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-100__n_unique-1/octyl_hat_s003__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Getting the Right Output Means no Artefacts in Calculating Stuff
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 288.39999
+0.1000 781.08527
+0.2000 294.71768
+0.3000 328.43622
+0.4000 336.93280
+0.5000 -37.706738
+0.6000 193.27382
+0.7000 -361.99054
+0.8000 58.627190
+0.9000 392.96387
+1.0000 -41.175762
+1.1000 -431.76810
+1.2000 5.9683580
+1.3000 -297.81369
+1.4000 270.22961
+1.5000 -114.77433
+1.6000 -39.662460
+1.7000 -84.000984
+1.8000 -155.33083
+1.9000 119.72691
+2.0000 -126.51221
+2.1000 247.07022
+2.2000 -98.413254
+2.3000 317.78259
+2.4000 80.234398
+2.5000 90.697105
+2.6000 -291.43332
+2.7000 128.60406
+2.8000 -284.91751
+2.9000 137.38492
+3.0000 70.438309
+3.1000 131.22968
+3.2000 -150.03992
+3.3000 20.341536
+3.4000 37.854546
+3.5000 136.99123
+3.6000 92.591331
+3.7000 85.323273
+3.8000 335.25943
+3.9000 -300.34009
+4.0000 -128.39296
+4.1000 34.288094
+4.2000 -88.841759
+4.3000 -215.73538
+4.4000 266.95877
+4.5000 -201.30135
+4.6000 263.22830
+4.7000 239.98106
+4.8000 6.7780352
+4.9000 -321.08810
+5.0000 -1000.7133

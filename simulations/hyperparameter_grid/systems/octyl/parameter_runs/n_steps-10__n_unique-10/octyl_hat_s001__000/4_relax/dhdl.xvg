@@ -1,0 +1,69 @@
+# This file was created Fri May  2 21:51:09 2025
+# Created by:
+#             :-) GROMACS - gmx mdrun, 2023.2-plumed_2.10.0_dev (-:
+# 
+# Executable:   /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run/bin/gmx
+# Data prefix:  /hits/fast/mbm/hartmaec/sw/gromacs/gromacs-2023.2_cascade_plumed2.9_shared/run
+# Working dir:  /hits/fast/mbm/ulanovei/projects/phd/kimmdy_hexyl/own_run/parameter_search/systems/octyl/parameter_runs/n_steps-10__n_unique-10/octyl_hat_s001__000/4_relax
+# Command line:
+#   gmx mdrun -s relax.tpr -cpi relax.cpt -x relax.xtc -o relax.trr -cpo relax.cpt -c relax.gro -g relax.log -e relax.edr -px relax_pullx.xvg -pf relax_pullf.xvg -ro relax-rotation.xvg -ra relax-rotangles.log -rs relax-rotslabs.log -rt relax-rottorque.log -maxh 24 -nt 1 -quiet
+# gmx mdrun is part of G R O M A C S:
+#
+# Gromacs Runs One Microsecond At Cannonball Speeds
+#
+@    title "dH/d\xl\f{}"
+@    xaxis  label "Time (ps)"
+@    yaxis  label "dH/d\xl\f{} (kJ/mol [\xl\f{}]\S-1\N)"
+@TYPE xy
+@ subtitle "T = 500 (K) "
+0.0000 178.99835
+0.1000 325.07321
+0.2000 -447.80923
+0.3000 209.82207
+0.4000 83.572525
+0.5000 -47.929466
+0.6000 -25.409735
+0.7000 73.258720
+0.8000 115.35578
+0.9000 177.24188
+1.0000 -307.43991
+1.1000 -233.94479
+1.2000 -220.30222
+1.3000 -8.7297430
+1.4000 317.34885
+1.5000 -352.16995
+1.6000 168.86003
+1.7000 291.67612
+1.8000 135.05997
+1.9000 -236.22098
+2.0000 -233.45483
+2.1000 65.239204
+2.2000 182.27235
+2.3000 -210.83951
+2.4000 118.54858
+2.5000 270.67392
+2.6000 -67.141922
+2.7000 -75.771027
+2.8000 302.77417
+2.9000 172.37210
+3.0000 -57.936768
+3.1000 74.083809
+3.2000 318.90274
+3.3000 0.29005861
+3.4000 -52.635277
+3.5000 371.48926
+3.6000 102.57864
+3.7000 -206.12459
+3.8000 259.94849
+3.9000 17.314459
+4.0000 39.085423
+4.1000 -86.984192
+4.2000 70.269722
+4.3000 337.15698
+4.4000 165.92586
+4.5000 3.7850063
+4.6000 -24.230106
+4.7000 346.57846
+4.8000 153.88046
+4.9000 63.016617
+5.0000 135.78197
