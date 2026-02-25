@@ -1,4 +1,4 @@
-"""Script for analysis and plotting of figure 2d and table A1b"""
+"""Script for analysis and plotting of figure 3d and table S5"""
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -67,6 +67,7 @@ pprint(exp_rates)
 r_experimental = np.array([np.mean(exp_rates[shift]) for shift in exp_shifts])
 p_experimental = r_experimental / r_experimental.sum()
 
+R_longest_scatter = np.full((n_uniques.size, len(shifts), 4), -1.0)  # All rates for longest simlation time
 
 BD = np.full((t_sims.size, n_uniques.size), np.nan)
 R_mean = np.full((len(shifts), t_sims.size, n_uniques.size), -1.0)
@@ -74,9 +75,7 @@ R_min = np.full((len(shifts), t_sims.size, n_uniques.size), -1.0)
 R_max = np.full((len(shifts), t_sims.size, n_uniques.size), -1.0)
 assert len(shifts) == 6
 
-
 ratios = {}
-
 for i, t_sim in enumerate(t_sims):
     for j, n_unique in enumerate(n_uniques):
 
@@ -96,12 +95,16 @@ for i, t_sim in enumerate(t_sims):
 
         # For BD analysis, we exclude 1-2 and 1-7
         assert rs_kimmdy.shape[0] == 6
+        assert p_experimental.shape[0] == 4
         p_kimmdy = (rs_kimmdy[1:-1] / np.nansum(rs_kimmdy[1:-1], axis=0)).T
 
         if t_sim == 100000 and n_unique == 100000:
             print(t_sim, n_unique)
             print(repr(p_kimmdy))
             print(p_kimmdy.shape, shifts)
+
+        if t_sim == 100000:
+            R_longest_scatter[j, :, :] = rs_kimmdy
 
         bd = np.mean([util.brier_score_divergence(p_k, p_experimental) for p_k in p_kimmdy])
         assert np.isclose(p_experimental.sum(), 1.0) and np.isclose(p_kimmdy[0].sum(), 1.0)
@@ -127,13 +130,18 @@ width = 1 / N   # width of each bar
 # Create plot
 fig, ax = plt.subplots(figsize=(single_column, single_column/2))
 
+df_scatter_rates_per_shift = {}
+
 for i in range(N):  # iterate over shifts: first build 1-2, afterwards 1-3 etc
     bars = ax.bar(x + i*width, R_longest[i], width, label=shifts[i], color=shift_colors[shifts[i]])
     bar = bars[0]
     x_center = bar.get_x() + bar.get_width() / 2
+    # Plot also the individual run rates
+    ax.scatter(np.repeat(x + i*width, 4), R_longest_scatter[:, i, :].flatten(), alpha=0.5,
+               color="white", zorder=1, facecolor="None", edgecolors="black", linewidth=0.5)
     ax.text(
-        x_center,
-        bar.get_height()+bar.get_height(),
+        x_center+0.03,
+        bar.get_height()+bar.get_height()*7,
         str(shifts[i]),
         ha='center',
         va='bottom',
@@ -142,6 +150,18 @@ for i in range(N):  # iterate over shifts: first build 1-2, afterwards 1-3 etc
         color=shift_colors[shifts[i]],
         weight='bold',
     )
+
+    # Save for later exporting
+    df_shift = pd.DataFrame(
+            data=R_longest_scatter[:, i, :],
+            index=n_uniques,
+            columns=[f"Rate run {k} [1/s]" for k in range(4)]
+        )
+    df_shift.index.name = "# of predicted reactions"
+    df_scatter_rates_per_shift[shifts[i]] = df_shift
+with pd.ExcelWriter(cwd / "output" / "hyperparameters" / f"alkyl_rate_convergence.xlsx") as writer:
+    for shift, df in df_scatter_rates_per_shift.items():
+        df.to_excel(writer, sheet_name=f"fig_3d_shift_{shift}", index=True)
 
 # Labeling
 ax.set_xticks(x + width*(N-1)/2)
@@ -163,4 +183,6 @@ x0, y0, x1, y1 = default_extent.x0, default_extent.y0, default_extent.x1, defaul
 custom_bbox = Bbox.from_extents(x0, y0, x1, y1)
 
 plt.savefig(cwd / "output" / "hyperparameters" / "alkyl_rate_convergence.png", bbox_inches=custom_bbox, dpi=300)
+plt.savefig(cwd / "output" / "hyperparameters" / "alkyl_rate_convergence.pdf", bbox_inches=custom_bbox, dpi=300)
+
 plt.show()

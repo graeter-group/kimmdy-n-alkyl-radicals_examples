@@ -341,14 +341,32 @@ pyrightconfig.json
 # Too large
 *.csv
 
-# Ignore everything recursively under
+BK/
+
 simulations/hyperparameter_grid/systems/**
 simulations/n-alkyl_examples/systems/**
 
-# Re-allow traversal into nested directories
 !simulations/hyperparameter_grid/systems/**/
 !simulations/n-alkyl_examples/systems/**/
 
 # Re-include all .gro files anywhere under
 !simulations/hyperparameter_grid/systems/**/*.gro
 !simulations/n-alkyl_examples/systems/**/*.gro
+
+!simulations/hyperparameter_grid/systems/**/*.yml
+!simulations/n-alkyl_examples/systems/**/*.yml
+
+!simulations/hyperparameter_grid/systems/**/*.mdp
+!simulations/n-alkyl_examples/systems/**/*.mdp
+
+!simulations/hyperparameter_grid/systems/**/*.ndx
+!simulations/n-alkyl_examples/systems/**/*.ndx
+
+!simulations/hyperparameter_grid/systems/**/*.top
+!simulations/n-alkyl_examples/systems/**/*.top
+
+!simulations/hyperparameter_grid/systems/**/*.tpr
+!simulations/n-alkyl_examples/systems/**/*.tpr
+
+!simulations/hyperparameter_grid/systems/**/*.xvg
+!simulations/n-alkyl_examples/systems/**/*.xvg

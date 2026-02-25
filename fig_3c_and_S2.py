@@ -1,6 +1,7 @@
-"""Script for analysis and plotting of figure 2c and A1a"""
+"""Script for analysis and plotting of figure 3c and S2"""
 
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 from pprint import pprint
 import experimental
@@ -69,6 +70,9 @@ indiv_rates_per_over_all_molecules = {shift: np.array([r for alkyl, r in alkyl_r
 pprint(mean_rates_per_over_all_molecules)
 pprint(indiv_rates_per_over_all_molecules)
 
+df_scatter_p_per_alkyl = {}
+df_scatter_rates_per_alkyl = {}
+
 fig, axes = plt.subplots(2, 1, figsize=(single_column, single_column), sharex=False)
 width = 1 / 4
 for i, ax in enumerate(axes):
@@ -95,6 +99,14 @@ for i, ax in enumerate(axes):
                alpha=1.0, width=width,
                color=plot_colors["experiment"], zorder=1, label="Experimental: n-alkyl")
 
+        df_scatter = pd.DataFrame(
+            data=p_experimental[1:-1],  # exclude shift 1-2 and 1-7, since set to zero
+            index=exp_shifts[1:-1],
+            columns=[f"Mean selection probability derived from experimental extrapolation"],
+        )
+        df_scatter.index.name = "Shift"
+        df_scatter_p_per_alkyl["experimental"] = df_scatter
+
         colors = {"heptyl": plot_colors["kimmdy_light"], "octyl": plot_colors["kimmdy"]}
 
         relabel = {"heptyl": "Heptyl", "octyl": "Octyl"}
@@ -118,6 +130,14 @@ for i, ax in enumerate(axes):
                    label=f"KIMMDY: {relabel[relative_alkyl]}",
                    color=colors[relative_alkyl],)
 
+            df_scatter= pd.DataFrame(
+                data=np.vstack((P[i_alkyl, 1:-1].T, p_alkyl[1:-1])),  # exclude shift 1-2 and 1-7, since set to zero
+                index=np.arange(P.shape[-1]).tolist()+["Mean"],
+                columns=[f"Probability for shift {s}" for s in relative_rate_shifts if s not in ["1-2", "1-7", "1-8"]],
+            )
+            df_scatter.index.name = "Simulation run"
+            df_scatter_p_per_alkyl[relabel[relative_alkyl]] = df_scatter
+
         ax.set_ylim((0, 1))
         ax.set_ylabel("Selection Probability")
 
@@ -125,6 +145,7 @@ for i, ax in enumerate(axes):
         ax.set_xlabel("Hydrogen Atom Transfer")
 
     else:
+
         shift_means = [mean_rates_per_over_all_molecules[shift] for shift in shifts]
         shift_values = [indiv_rates_per_over_all_molecules[shift] for shift in shifts]
 
@@ -134,6 +155,18 @@ for i, ax in enumerate(axes):
             ax.scatter([xticks[shift]] * len(shift_vs) + np.random.normal(0, 0.01, len(shift_vs)), shift_vs, alpha=0.8,
                        color="white", zorder=1, facecolor="None", edgecolors="black", linewidth=0.5)
 
+        kimmdy_rates_per_shift_and_alkyl = np.full((len(shifts), len(shift_values[0])), np.nan)  # float dtype so NaN is allowed
+        for i_shift, rates_per_shift in enumerate(shift_values):
+            kimmdy_rates_per_shift_and_alkyl[i_shift, :len(rates_per_shift)] = rates_per_shift
+
+        df_scatter = pd.DataFrame(
+            data=np.column_stack((kimmdy_rates_per_shift_and_alkyl, shift_means)),  # exclude shift 1-2 and 1-7, since set to zero
+            index=shifts,
+            columns=[f"KIMMDY rate for {a}" for a in alkyls]+["Mean"],
+        )
+        df_scatter.index.name = "Shift"
+        df_scatter_rates_per_alkyl["kimmdy"] = df_scatter
+
         ax.bar(np.array([xticks[shift] for shift in exp_shifts]) + width, exp_shift_means, alpha=1.0, width=width,
                color=plot_colors["experiment"], zorder=1, label="Experimental: n-alkyl")
 
@@ -141,6 +174,18 @@ for i, ax in enumerate(axes):
             ax.scatter([xticks[exp_shift] + width] * len(exp_shift_vs) + np.random.normal(0, 0.01, len(exp_shift_vs)),
                        exp_shift_vs, alpha=0.5,
                        color="white", zorder=1, edgecolors="black", linewidth=0.5)
+
+        exp_rates_per_shift_and_alkyl = np.full((len(shifts)-2, np.max([len(rs) for rs in exp_shift_values])), np.nan)  # float dtype so NaN is allowed
+        for i_shift, rates_per_shift in enumerate(exp_shift_values[1:-1]):  # no 1-2 and 1-7 available
+            exp_rates_per_shift_and_alkyl[i_shift, :len(rates_per_shift)] = rates_per_shift
+
+        df_scatter = pd.DataFrame(
+            data=np.column_stack((exp_shift_means[1:-1], exp_rates_per_shift_and_alkyl)),
+            index=exp_shifts[1:-1],
+            columns=["Mean"] + ["Extrapolated rates from experimental studies at 500K [1/s]"] + [""]*(exp_rates_per_shift_and_alkyl.shape[1]-1),
+        )
+        df_scatter.index.name = "Shift"
+        df_scatter_rates_per_alkyl["experimental"] = df_scatter
 
         ax.set_xticks(np.arange(len(shifts)) + 0.125, shifts)
         ax.set_ylabel(f"Absolute rates at {T}K [1/s]")
@@ -165,11 +210,21 @@ x0, y0, x1, y1 = default_extent.x0, default_extent.y0, default_extent.x1, defaul
 custom_bbox = Bbox.from_extents(x0+0.1, y1/2, x1-0.05, y1-0.05)
 plt.savefig(output_dir_root / "rates_relative.png", bbox_inches=custom_bbox, dpi=300)
 kimmdy_paper_theme.convert_to_rgb(output_dir_root / "rates_relative.png")
+plt.savefig(output_dir_root / "rates_relative.pdf", bbox_inches=custom_bbox, dpi=300)
 
 
 # Lower figure
 custom_bbox = Bbox.from_extents(x0+0.1, y0+0.1, x1-0.05, y1/2)
 plt.savefig(output_dir_root / "rates_absolute.png", bbox_inches=custom_bbox, dpi=300)
 kimmdy_paper_theme.convert_to_rgb(output_dir_root / "rates_absolute.png")
+plt.savefig(output_dir_root / "rates_absolute.pdf", bbox_inches=custom_bbox, dpi=300)
 
 plt.show()
+
+with pd.ExcelWriter(output_dir_root / f"fig_3c.xlsx") as writer:
+    for alkyl, df in df_scatter_p_per_alkyl.items():
+        df.to_excel(writer, sheet_name=f"fig_3c_prob_{alkyl}", index=True)
+
+with pd.ExcelWriter(output_dir_root / f"fig_SI_abs_rates.xlsx") as writer:
+    for kimmdy_or_exp, df in df_scatter_rates_per_alkyl.items():
+        df.to_excel(writer, sheet_name=f"fig_SI_abs_rates_{kimmdy_or_exp}", index=True)
