@@ -370,3 +370,6 @@ simulations/n-alkyl_examples/systems/**
 
 !simulations/hyperparameter_grid/systems/**/*.xvg
 !simulations/n-alkyl_examples/systems/**/*.xvg
+
+automated_run/pngs/**
+automated_run/runs/**
