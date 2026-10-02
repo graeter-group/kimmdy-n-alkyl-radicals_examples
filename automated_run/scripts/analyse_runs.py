@@ -25,7 +25,7 @@ TARGET_TEMP_K = 500.0  # Temperature to evaluate experimental rate equations
 output_dir = root_dir / "pngs"
 #output_dir.mkdir(exist_ok=True)
 
-run_name = "test_20260925_083842"
+run_name = "HAT-MACE_nunique10000_20261001_161142"
 run_dir = root_dir / "runs" / run_name
 
 systems = ["heptyl", "octyl"]
@@ -55,7 +55,7 @@ def extract_ordered_ids(recipe_str: str) -> tuple[int, ...]:
 def extract_first_timespan(timespan_str: str) -> float:
     """Extracts the first timespan value."""
     val = ast.literal_eval(str(timespan_str))
-    return float(val[0][0])
+    return int(val[0][0])
 
 
 def extract_first_rate(rate_str: str) -> float:
@@ -71,31 +71,37 @@ def load_and_parse(file_path: str) -> pd.DataFrame:
         {
             "ids": raw_df["recipe_steps"].apply(extract_ordered_ids),
             "rates": 1e12 * raw_df["rates"].apply(extract_first_rate),  # s⁻¹
-            "timespans": 1e-12 * raw_df["timespans"].apply(extract_first_timespan), #ps to s
+            "timespans": 1000 * raw_df["timespans"].apply(extract_first_timespan), #ps to fs
         }
     )
 
 
 def process_subsampling(df: pd.DataFrame, file_id: int) -> pd.DataFrame:
     """Processes an already parsed simulation DataFrame for subsampling down to different frame resolutions."""
-    total_sim_time_s = df["timespans"].max()  # Or pass explicitly per trajectory
+    total_sim_time_fs = df["timespans"].max()  # Or pass explicitly per trajectory
+    total_sim_time_s = 1e-15 * total_sim_time_fs  # Or pass explicitly per trajectory
 
     # Filter out valid HAT recipes (at least 3 atom IDs)
     df_valid = df[df["ids"].apply(lambda x: len(x) >= 3)].copy()
     df_valid["id_diff"] = df_valid["ids"].apply(lambda x: abs(x[0] - x[2]))
 
+    # Obtain distinct time steps across the entire dataset
+    unique_times = pd.Series(df["timespans"].unique()).sort_values().values
+    n_total_frames = len(unique_times)
+
     all_subsamples = []
     step_sizes = [1, 10, 100, 1000, 10000, 100000]
-    df_sorted = df_valid.sort_values("timespans")
-    n_total_frames = len(df_raw)
 
     for step in step_sizes:
-        subsampled_df = df_sorted.iloc[::step].copy()
-        if subsampled_df.empty:
+        # Subsample unique time steps rather than individual dataframe rows
+        selected_times = unique_times[::step]
+        subsampled_df = df_valid[df_valid["timespans"].isin(selected_times)]
+        
+        n_frames = len(selected_times)  # Number of sampled unique frames/time points
+        if subsampled_df.empty or n_frames == 0:
             continue
 
-        n_frames = len(subsampled_df)
-        print(step,n_frames)
+        print(f"Step: {step}, Selected Frames: {n_frames}")
         label = "1 (Full)" if step == 1 else f"1/{step}"
 
         # --- STEP 1: First grouping by unique 'ids' ---
@@ -104,11 +110,10 @@ def process_subsampling(df: pd.DataFrame, file_id: int) -> pd.DataFrame:
             .agg(sum_rate=("rates", "sum"))
         )
 
-        # True time-averaged rate constant (including 0-rate frames)
-        grouped_ids["rate"] = grouped_ids["sum_rate"] / n_total_frames  # s⁻¹
+        # True time-averaged rate constant over the sampled frames
+        grouped_ids["rate"] = grouped_ids["sum_rate"] / n_frames  # s⁻¹
 
         # Reaction probability over trajectory: P ≈ <k> * total_sim_time_s
-        # (where total_sim_time_s = n_total_frames * dt_s)
         grouped_ids["reaction_probability"] = grouped_ids["rate"] * total_sim_time_s
 
         # --- STEP 2: Second grouping to aggregate from 'ids' up to 'id_diff' ---
@@ -136,6 +141,9 @@ def process_subsampling(df: pd.DataFrame, file_id: int) -> pd.DataFrame:
         )
 
         all_subsamples.append(grouped)
+
+    if not all_subsamples:
+        return pd.DataFrame()
 
     return pd.concat(all_subsamples, ignore_index=True)
 
@@ -197,7 +205,8 @@ for idx, fp in tqdm(enumerate(file_paths), desc="Parsing simulation files"):
     
     # 1. Get total frame count (including frames with 0 predicted rate)
     n_total_frames = len(df_raw)
-    total_sim_time_s = df_raw["timespans"].max()
+    total_sim_time_fs = df_raw["timespans"].max()
+    total_sim_time_s = 1e-15*total_sim_time_fs
     
     # 2. Filter to valid HAT recipes
     df_valid = df_raw[df_raw["ids"].apply(lambda x: len(x) >= 3)].copy()
@@ -231,7 +240,7 @@ for idx, fp in tqdm(enumerate(file_paths), desc="Parsing simulation files"):
 df_sim_full = pd.concat(full_dfs, ignore_index=True)
 df_sim_full["origin"] = "Simulation"
 
-#%%
+ #%%
 # Load Experimental Data
 df_exp = get_experimental_dataframe(TARGET_TEMP_K)
 
@@ -498,4 +507,13 @@ plt.savefig(output_dir / f"3_rates_vs_frames_cividis_{run_name}.png", dpi=300)
 plt.show()
 
 print("Analysis complete. Generated plots successfully saved.")
+# %%
+#convert s to fs in dfs
+
+for curr_df in raw_parsed_dfs:
+    #curr_df['timespans'] = 1e15 * curr_df['timespans']
+    #curr_df['timespans'] = curr_df['timespans'].astype(int)
+    #curr_df['timespans'] = round(curr_df['timespans'],ndigits=3)
+    print(curr_df['timespans'].max())
+    print(curr_df['timespans'].min())
 # %%

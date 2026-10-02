@@ -33,7 +33,7 @@ reactions:
     keep_structures: False
     cap: True 
     prediction_scheme: 'all_models'
-    n_unique: 10000
+    n_unique: 100000
     trajectory_format: 'trr'
     change_coords: 'lambda'
     rate_equation: 'eyring'
