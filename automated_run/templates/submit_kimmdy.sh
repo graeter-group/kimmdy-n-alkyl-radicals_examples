@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=16
-#SBATCH --mem=160G
+#SBATCH --mem=48G
 #SBATCH --gres=gpu:1
 #SBATCH --partition=s.otter
 #SBATCH --output=slurm/run_%j.out

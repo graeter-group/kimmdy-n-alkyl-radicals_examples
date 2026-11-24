@@ -4,7 +4,7 @@ set -euo pipefail
 # ==========================================
 # Configuration & Header Variables
 # ==========================================
-RUN_NAME="HAT-MACE_nunique10000"
+RUN_NAME="HAT-MACE_datasetv2_capdist8"
 DRY_RUN=false # Configured for active Slurm job submission
 
 # Internal Relative Directory Paths

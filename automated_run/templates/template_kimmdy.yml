@@ -34,6 +34,9 @@ reactions:
     cap: True 
     prediction_scheme: 'all_models'
     n_unique: 100000
+    multiple_workers: 8
+    mace_default_dtype: 'float32'
+    mace_batch_size: 256
     trajectory_format: 'trr'
     change_coords: 'lambda'
     rate_equation: 'eyring'
