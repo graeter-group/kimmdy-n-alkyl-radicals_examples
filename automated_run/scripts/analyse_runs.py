@@ -10,7 +10,11 @@ import seaborn as sns
 import sys
 from tqdm import tqdm
 
-root_dir = Path("/home/hartmanne/Cluster/otter_ptmp/alkyl_simulations/kimmdy-n-alkyl-radicals_examples/automated_run/")
+# Override with ANALYSIS_ROOT when running on the cluster (local sshfs path is the default)
+root_dir = Path(os.environ.get(
+    "ANALYSIS_ROOT",
+    "/home/hartmanne/Cluster/otter_ptmp/alkyl_simulations/kimmdy-n-alkyl-radicals_examples/automated_run/",
+))
 script_dir = root_dir / "scripts"
 # Force this directory to the top of Python's search path
 if script_dir.as_posix() not in sys.path:
@@ -25,15 +29,38 @@ TARGET_TEMP_K = 500.0  # Temperature to evaluate experimental rate equations
 output_dir = root_dir / "pngs"
 #output_dir.mkdir(exist_ok=True)
 
-run_name = "HAT-MACE_nunique10000_20261001_161142"
+# Override with ANALYSIS_RUN_NAME to analyse another run without editing the script
+run_name = os.environ.get("ANALYSIS_RUN_NAME", "HAT-MACE_datasetv2_capdist8_20261122_085918")
 run_dir = root_dir / "runs" / run_name
 
 systems = ["heptyl", "octyl"]
 
+def trajectory_frames(mdp_path: Path) -> tuple[int, int]:
+    """Number of trajectory frames and frame spacing (fs) of the equilibrium MD.
+
+    KIMMDY scans the .trr, so frames are written every nstxout steps.
+    Frames not evaluated by KIMMDY (e.g. beyond n_unique per reaction) count as rate 0,
+    so time averages must divide by the total number of trajectory frames.
+    """
+    params = {}
+    for line in mdp_path.read_text().splitlines():
+        line = line.split(";", 1)[0]
+        if "=" in line:
+            key, value = line.split("=", 1)
+            params[key.strip().replace("_", "-")] = value.strip()
+    nsteps, nstxout, dt_ps = int(params["nsteps"]), int(params["nstxout"]), float(params["dt"])
+    return nsteps // nstxout + 1, int(round(nstxout * dt_ps * 1000))
+
+
 file_paths: list[Path] = []
+traj_info: dict[Path, tuple[int, int]] = {}  # recipes.csv -> (n_total_frames, frame_dt_fs)
 
 for system in systems:
-    file_paths.extend((run_dir / system).glob("sim*/HAT_000/2_decide_recipe/recipes.csv"))
+    sys_frames = trajectory_frames(run_dir / system / "sd.mdp")
+    print(f"{system}: {sys_frames[0]} trajectory frames every {sys_frames[1]} fs")
+    for fp in sorted((run_dir / system).glob("sim*/HAT_000/2_decide_recipe/recipes.csv")):
+        file_paths.append(fp)
+        traj_info[fp] = sys_frames
 
 if len(file_paths) == 0:
     raise FileNotFoundError("No valid recipes.csv files were found in specified paths.")
@@ -53,9 +80,9 @@ def extract_ordered_ids(recipe_str: str) -> tuple[int, ...]:
 
 
 def extract_first_timespan(timespan_str: str) -> float:
-    """Extracts the first timespan value."""
+    """Extracts the first timespan value (ps). Kept as float: int() would truncate to whole ps."""
     val = ast.literal_eval(str(timespan_str))
-    return int(val[0][0])
+    return float(val[0][0])
 
 
 def extract_first_rate(rate_str: str) -> float:
@@ -71,33 +98,38 @@ def load_and_parse(file_path: str) -> pd.DataFrame:
         {
             "ids": raw_df["recipe_steps"].apply(extract_ordered_ids),
             "rates": 1e12 * raw_df["rates"].apply(extract_first_rate),  # s⁻¹
-            "timespans": 1000 * raw_df["timespans"].apply(extract_first_timespan), #ps to fs
+            # ps -> fs, rounded to whole fs (not truncated to whole ps)
+            "timespans": (1000 * raw_df["timespans"].apply(extract_first_timespan)).round().astype(np.int64),
         }
     )
 
 
-def process_subsampling(df: pd.DataFrame, file_id: int) -> pd.DataFrame:
-    """Processes an already parsed simulation DataFrame for subsampling down to different frame resolutions."""
-    total_sim_time_fs = df["timespans"].max()  # Or pass explicitly per trajectory
-    total_sim_time_s = 1e-15 * total_sim_time_fs  # Or pass explicitly per trajectory
+def process_subsampling(
+    df: pd.DataFrame, file_id: int, n_total_frames: int, frame_dt_fs: int
+) -> pd.DataFrame:
+    """Processes an already parsed simulation DataFrame for subsampling down to different frame resolutions.
+
+    Subsampling keeps every step-th trajectory frame (by frame index, so frames without
+    any evaluated recipe still count) and averages over all frames of the subsample.
+    """
+    total_sim_time_fs = (n_total_frames - 1) * frame_dt_fs
+    total_sim_time_s = 1e-15 * total_sim_time_fs
 
     # Filter out valid HAT recipes (at least 3 atom IDs)
     df_valid = df[df["ids"].apply(lambda x: len(x) >= 3)].copy()
     df_valid["id_diff"] = df_valid["ids"].apply(lambda x: abs(x[0] - x[2]))
 
-    # Obtain distinct time steps across the entire dataset
-    unique_times = pd.Series(df["timespans"].unique()).sort_values().values
-    n_total_frames = len(unique_times)
+    # Trajectory frame index of each recipe
+    frame_idx = (df_valid["timespans"] / frame_dt_fs).round().astype(np.int64)
 
     all_subsamples = []
     step_sizes = [1, 10, 100, 1000, 10000, 100000]
 
     for step in step_sizes:
-        # Subsample unique time steps rather than individual dataframe rows
-        selected_times = unique_times[::step]
-        subsampled_df = df_valid[df_valid["timespans"].isin(selected_times)]
-        
-        n_frames = len(selected_times)  # Number of sampled unique frames/time points
+        # Keep trajectory frames 0, step, 2*step, ...
+        subsampled_df = df_valid[frame_idx % step == 0]
+
+        n_frames = (n_total_frames - 1) // step + 1  # Number of trajectory frames in the subsample
         if subsampled_df.empty or n_frames == 0:
             continue
 
@@ -203,10 +235,17 @@ for idx, fp in tqdm(enumerate(file_paths), desc="Parsing simulation files"):
     df_raw = load_and_parse(fp.as_posix())
     raw_parsed_dfs.append(df_raw)
     
-    # 1. Get total frame count (including frames with 0 predicted rate)
-    n_total_frames = len(df_raw)
-    total_sim_time_fs = df_raw["timespans"].max()
+    # 1. Get total frame count of the trajectory (including frames with 0 predicted rate
+    #    and frames KIMMDY did not evaluate); len(df_raw) would count recipe rows instead
+    n_total_frames, frame_dt_fs = traj_info[fp]
+    total_sim_time_fs = (n_total_frames - 1) * frame_dt_fs
     total_sim_time_s = 1e-15*total_sim_time_fs
+    # Recipe times are float32 (from the .trr): ~1e5 ps carries a few fs of rounding error,
+    # so only flag times beyond the trajectory or clearly off the frame grid (>10% of spacing)
+    frame_idx_all = (df_raw["timespans"] / frame_dt_fs).round()
+    grid_offset_fs = (df_raw["timespans"] - frame_idx_all * frame_dt_fs).abs().max()
+    if frame_idx_all.max() >= n_total_frames or grid_offset_fs > 0.1 * frame_dt_fs:
+        print(f"WARNING {fp}: recipe times do not match {n_total_frames} frames every {frame_dt_fs} fs")
     
     # 2. Filter to valid HAT recipes
     df_valid = df_raw[df_raw["ids"].apply(lambda x: len(x) >= 3)].copy()
@@ -234,6 +273,7 @@ for idx, fp in tqdm(enumerate(file_paths), desc="Parsing simulation files"):
     )
     
     grouped["file_id"] = idx
+    grouped["system"] = fp.relative_to(run_dir).parts[0]
     grouped["reaction_type"] = grouped["id_diff"].apply(lambda d: f"1-{int(d) + 1}")
     full_dfs.append(grouped)
 
@@ -310,7 +350,7 @@ plt.show()
 
 #%% prepare fig 2
 # 1. Simulation: Auswahlwahrscheinlichkeiten pro Trajektorie/Datei berechnen
-df_sim_prob_final = df_sim_full[["file_id", "reaction_type", "selection_probability"]].copy()
+df_sim_prob_final = df_sim_full[["file_id", "system", "reaction_type", "selection_probability"]].copy()
 df_sim_prob_final["origin"] = "Simulation"
 
 # --- Concise Creation of Modified Simulation Data ---
@@ -354,19 +394,53 @@ palette = {
     "Experiment": "#d95f02",
 }
 #%%
-# --- 1. Calculate Mean Probabilities per Reaction Type for Brier Score ---
+# --- Brier score divergence, same definition as the paper (fig_3c_and_S2.py + util.brier_score_divergence):
+# per simulation run, SUM over the molecule's shift types of (p_sim - p_exp)^2, then MEAN over runs,
+# separately per molecule. Summing (not averaging) over shift types makes the score independent of how
+# many zero-probability shift types are included.
 exp_means = exp_mean_rates.set_index("reaction_type")["selection_probability"]
 
-def calc_brier_score(df_sim):
-    sim_means = df_sim.groupby("reaction_type")["selection_probability"].mean()
-    # Align reaction types between simulation and experiment
-    aligned = pd.concat([sim_means, exp_means], axis=1, keys=["sim", "exp"]).fillna(0.0)
-    return np.mean((aligned["sim"] - aligned["exp"]) ** 2)
+N_CARBONS = {"propyl": 3, "butyl": 4, "pentyl": 5, "hexyl": 6, "heptyl": 7, "octyl": 8}
 
-brier_orig = calc_brier_score(df_sim_prob_final)
-brier_masked= calc_brier_score(df_sim_masked)
-brier_paper = 0.03
-brier_ignorant = 0.48
+# Paper values (fig. 3c), recomputed with this definition from output/n-alkyl_examples/fig_3c.xlsx.
+# The paper scored shifts 1-2..1-7 for both molecules (octyl's 1-8 omitted, p ~ 5e-4).
+BRIER_PAPER = {"heptyl": 0.0445, "octyl": 0.0200}
+
+
+def shift_types(system: str) -> list[str]:
+    """All possible 1-k H-shifts of an n-alkyl radical with the radical on the terminal carbon."""
+    return [f"1-{k}" for k in range(2, N_CARBONS[system] + 1)]
+
+
+def calc_brier_score(df_sim: pd.DataFrame, system: str) -> float:
+    shifts = shift_types(system)
+    p_exp = exp_means.reindex(shifts, fill_value=0.0)
+    p_sim = (
+        df_sim[df_sim["system"] == system]
+        .pivot_table(index="file_id", columns="reaction_type", values="selection_probability", aggfunc="sum")
+        .reindex(columns=shifts)
+        .fillna(0.0)
+    )
+    return float(((p_sim - p_exp) ** 2).sum(axis=1).mean())
+
+
+def calc_brier_uniform(system: str) -> float:
+    shifts = shift_types(system)
+    p_exp = exp_means.reindex(shifts, fill_value=0.0)
+    return float(((1.0 / len(shifts) - p_exp) ** 2).sum())
+
+
+brier = {
+    system: dict(
+        raw=calc_brier_score(df_sim_prob_final, system),
+        masked=calc_brier_score(df_sim_masked, system),
+        paper=BRIER_PAPER.get(system, np.nan),
+        uniform=calc_brier_uniform(system),
+    )
+    for system in systems
+}
+for system, b in brier.items():
+    print(f"Brier {system}: " + ", ".join(f"{k} {v:.4f}" for k, v in b.items()))
 
 #%% Plot figure
 fig, ax = plt.subplots(figsize=(11, 6))
@@ -418,13 +492,15 @@ leg = plt.legend(
 )
 
 # Format Brier Score text cleanly with line breaks
-brier_text = (
-    "Brier Score vs. Exp:\n"
-    f"• Sim raw: {brier_orig:.4f}\n"
-    f"• Sim masked: {brier_masked:.4f}\n"
-    f"• Sim paper: 0.0300\n"
-    f"• Ignorant uniform: 0.4800"
-)
+brier_text = "Brier score vs. Exp\n(sum over shifts, mean over runs):"
+for system, b in brier.items():
+    brier_text += (
+        f"\n{system.capitalize()} ({len(shift_types(system))} shifts)\n"
+        f"• Sim raw: {b['raw']:.4f}\n"
+        f"• Sim masked: {b['masked']:.4f}\n"
+        f"• Paper (fig. 3c): {b['paper']:.4f}\n"
+        f"• Uniform: {b['uniform']:.4f}"
+    )
 
 # Add text box using fixed axes coordinates aligned under x=1.02
 plt.text(
@@ -452,8 +528,8 @@ def round_to_nearest_magnitude(val: int) -> int:
     return int(round(val / order) * order)
 
 processed_dfs = [
-    process_subsampling(df_raw, idx)
-    for idx, df_raw in enumerate(raw_parsed_dfs)
+    process_subsampling(df_raw, idx, *traj_info[fp])
+    for idx, (df_raw, fp) in enumerate(zip(raw_parsed_dfs, file_paths))
 ]
 
 # Concatenate into single dataframe for Plot 3
