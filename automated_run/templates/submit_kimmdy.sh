@@ -19,7 +19,8 @@ module purge
 module load gromacs-plumed/2024.6
 #eval "$(conda shell.bash hook)"
 #conda activate "$HOME/conda-envs/uv"
-source "$HOME/software/KIMMDY/kimmdy/.venv/bin/activate"
+KIMMDY_REPO="$HOME/software/KIMMDY/kimmdy_test"
+source "$KIMMDY_REPO/.venv/bin/activate"
 
 #export OMP_NUM_THREADS="$SLURM_CPUS_PER_TASK"
 
@@ -38,6 +39,21 @@ echo "Current directory: $(pwd)"
 # Copy required files (.mdp, .gro, .top, .ndx, and kimmdy.yml) from parent directory
 cp "$PARENT_DIR"/*.mdp "$PARENT_DIR"/*.gro "$PARENT_DIR"/*.top "$PARENT_DIR"/*.ndx .
 cp "$PARENT_DIR"/kimmdy.yml . 2>/dev/null || true
+
+# Record the KIMMDY code state this task actually imports (editable install).
+# Compare diff_sha256 with ../../kimmdy_version.txt to detect changes since submission.
+{
+    echo "recorded_at: $(date -Iseconds)"
+    echo "repo: $KIMMDY_REPO"
+    echo "branch: $(git -C "$KIMMDY_REPO" branch --show-current)"
+    echo "commit: $(git -C "$KIMMDY_REPO" rev-parse HEAD)"
+    echo "diff_sha256: $(git -C "$KIMMDY_REPO" diff HEAD --submodule=diff | sha256sum | cut -d' ' -f1)"
+    echo "--- git submodule status"
+    git -C "$KIMMDY_REPO" submodule status
+    echo "--- git status --short"
+    git -C "$KIMMDY_REPO" status --short
+} > kimmdy_version.txt 2>&1 || echo "WARNING: could not record KIMMDY version"
+cat kimmdy_version.txt
 
 echo "run kimmdy"
 
